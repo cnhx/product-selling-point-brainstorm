@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 产品功能矩阵 · 2026-05-20</title>
+<style>
+  :root {
+    --bg: #0f1419;
+    --surface: #1a2028;
+    --surface-2: #232b36;
+    --border: #2d3748;
+    --text: #e4e7eb;
+    --text-dim: #9aa5b1;
+    --accent: #f59e0b;
+    --accent-2: #60a5fa;
+    --L: #6b7280;
+    --M: #3b82f6;
+    --H: #f59e0b;
+    --XH: #ef4444;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 40px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+  }
+  h1 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .meta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    color: var(--text-dim);
+    font-size: 13px;
+  }
+  .meta-tag {
+    background: var(--surface);
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+  .lead {
+    color: var(--text-dim);
+    font-size: 16px;
+    margin-top: 16px;
+    max-width: 760px;
+  }
+  h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 48px;
+    margin-bottom: 16px;
+    color: var(--accent);
+    border-left: 4px solid var(--accent);
+    padding-left: 12px;
+  }
+  h3 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-top: 24px;
+    margin-bottom: 12px;
+    color: var(--accent-2);
+  }
+  .rubric {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+  }
+  .rubric ul { list-style: none; }
+  .rubric li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .rubric li:last-child { border-bottom: none; }
+  .rubric strong { color: var(--accent); margin-right: 12px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 14px;
+  }
+  th {
+    background: var(--surface-2);
+    text-align: left;
+    padding: 14px 12px;
+    font-weight: 600;
+    color: var(--text-dim);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover { background: var(--surface-2); }
+  td.num {
+    color: var(--text-dim);
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    width: 36px;
+  }
+  td.feature { font-weight: 500; min-width: 200px; }
+  td.note { color: var(--text-dim); font-size: 13px; }
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
+    min-width: 32px;
+    text-align: center;
+  }
+  .badge-L { background: var(--L); }
+  .badge-M { background: var(--M); }
+  .badge-H { background: var(--H); }
+  .badge-XH { background: var(--XH); }
+  .badge-q { background: var(--surface-2); color: var(--text-dim); border: 1px dashed var(--border); }
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .detail-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  .detail-card .head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .detail-card .head .id {
+    color: var(--text-dim);
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    font-size: 13px;
+    background: var(--surface-2);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .detail-card .head .name {
+    font-size: 16px;
+    font-weight: 600;
+    flex: 1;
+    min-width: 0;
+  }
+  .detail-card .head .badges {
+    display: flex;
+    gap: 4px;
+  }
+  .detail-card .head .badges .badge {
+    padding: 2px 6px;
+    font-size: 11px;
+    min-width: 26px;
+  }
+  .detail-card .position {
+    font-style: italic;
+    color: var(--accent);
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  .detail-card .desc {
+    font-size: 14px;
+    color: var(--text);
+    margin-bottom: 14px;
+    flex: 1;
+  }
+  .detail-card .meta-row {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    border-top: 1px solid var(--border);
+  }
+  .detail-card .meta-row .label {
+    color: var(--text-dim);
+    font-weight: 600;
+  }
+  .detail-card .meta-row .value {
+    color: var(--text);
+  }
+  .quadrant-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .quadrant {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+  }
+  .quadrant.priority-1 { border-left: 4px solid var(--XH); }
+  .quadrant.priority-2 { border-left: 4px solid var(--H); }
+  .quadrant.priority-3 { border-left: 4px solid var(--M); }
+  .quadrant.priority-x { border-left: 4px solid var(--L); }
+  .quadrant h3 { margin-top: 0; }
+  .quadrant ul { list-style: none; }
+  .quadrant li {
+    padding: 8px 0;
+    font-size: 14px;
+    color: var(--text-dim);
+  }
+  .quadrant li strong { color: var(--text); }
+  .combo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .combo {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .combo::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+  }
+  .combo.a::before { background: linear-gradient(90deg, #f59e0b, #ef4444); }
+  .combo.b::before { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+  .combo.c::before { background: linear-gradient(90deg, #10b981, #34d399); }
+  .combo-name {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+  .combo .content {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+  }
+  .combo .story {
+    font-size: 14px;
+    font-style: italic;
+    color: var(--accent);
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+  .combo-note {
+    margin-top: 16px;
+    padding: 14px 18px;
+    background: var(--surface-2);
+    border-radius: 6px;
+    font-size: 14px;
+    color: var(--text-dim);
+  }
+  ol.steps {
+    list-style: none;
+    counter-reset: step;
+  }
+  ol.steps li {
+    counter-increment: step;
+    padding: 14px 0 14px 48px;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+  }
+  ol.steps li:last-child { border-bottom: none; }
+  ol.steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 32px;
+    height: 32px;
+    background: var(--accent);
+    color: var(--bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  code {
+    background: var(--surface-2);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 13px;
+    font-family: "SF Mono", Menlo, monospace;
+  }
+  footer {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 13px;
+  }
+  @media (max-width: 768px) {
+    body { padding: 20px 12px; }
+    .quadrant-grid, .combo-grid, .detail-grid { grid-template-columns: 1fr; }
+    h1 { font-size: 24px; }
+    table { font-size: 13px; }
+    td, th { padding: 8px 6px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>AI 产品功能矩阵</h1>
+  <div class="meta">
+    <span class="meta-tag">2026-05-20</span>
+    <span class="meta-tag">draft</span>
+    <span class="meta-tag">Bryan</span>
+    <span class="meta-tag">iGaming</span>
+    <span class="meta-tag">HG / J9 / PA / BP</span>
+  </div>
+  <p class="lead">前期发散的 24 个想法按「整合复杂度 × 商业价值 × 差异化」三轴评分，标好挂哪条产品线，并给每个功能配上能力描述。下面是评分、功能详情和我的取舍。</p>
+</header>
+
+<h2>评分口径</h2>
+<div class="rubric">
+  <ul>
+    <li><strong>整合复杂度</strong><span class="badge badge-L">L</span> 2 周内能出 demo&nbsp;&nbsp; <span class="badge badge-M">M</span> 1-2 个季度&nbsp;&nbsp; <span class="badge badge-H">H</span> 半年以上&nbsp;&nbsp; <span class="badge badge-XH">XH</span> 跨年度战略级</li>
+    <li><strong>商业价值</strong><span class="badge badge-L">L</span> 锦上添花&nbsp;&nbsp; <span class="badge badge-M">M</span> 能讲故事&nbsp;&nbsp; <span class="badge badge-H">H</span> 能直接卖钱或拿牌照&nbsp;&nbsp; <span class="badge badge-XH">XH</span> 改变估值逻辑</li>
+    <li><strong>差异化</strong><span class="badge badge-L">L</span> 对手已有&nbsp;&nbsp; <span class="badge badge-M">M</span> 对手能跟&nbsp;&nbsp; <span class="badge badge-H">H</span> SEA 市场独家&nbsp;&nbsp; <span class="badge badge-XH">XH</span> 品类首创</li>
+    <li><strong>产品线</strong>HG（自营大厅）/ J9（TG 机器人）/ PA、BP（平台对接）/ 捕鱼 / 直播 / 内部 / 平台战略</li>
+  </ul>
+</div>
+
+<h2>主矩阵</h2>
+<table>
+  <thead>
+    <tr>
+      <th>#</th><th>功能</th><th>复杂度</th><th>价值</th><th>差异化</th><th>产品线</th><th>备注</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td class="num">1</td><td class="feature">个性化推荐引擎</td><td><span class="badge badge-M">M</span></td><td><span class="badge badge-H">H</span></td><td><span class="badge badge-M">M</span></td><td>HG / J9 / PA/BP</td><td class="note">跨品类协同是真正抓手</td></tr>
+    <tr><td class="num">2</td><td class="feature">反作弊 / 异常行为检测</td><td><span class="badge badge-H">H</span></td><td><span class="badge badge-H">H</span></td><td><span class="badge badge-M">M</span></td><td>PA/BP</td><td class="note">运营商付费意愿最强</td></tr>
+    <tr><td class="num">3</td><td class="feature">自然语言 BI</td><td><span class="badge badge-M">M</span></td><td><span class="badge badge-H">H</span></td><td><span class="badge badge-M">M</span></td><td>Mission Control / B 端</td><td class="note">最快出 demo，路演杀器</td></tr>
+    <tr><td class="num">4</td><td class="feature">多语种实时客服</td><td><span class="badge badge-M">M</span></td><td><span class="badge badge-M">M</span></td><td><span class="badge badge-H">H</span></td><td>HG / 直播</td><td class="note">印尼 / 泰 / 越 / 中</td></tr>
+    <tr><td class="num">5</td><td class="feature">Responsible Gaming AI</td><td><span class="badge badge-L">L</span></td><td><span class="badge badge-M">M</span></td><td><span class="badge badge-H">H</span></td><td>合规 / HG</td><td class="note">牌照谈判筹码</td></tr>
+    <tr><td class="num">6</td><td class="feature">数学建模助手</td><td><span class="badge badge-H">H</span></td><td><span class="badge badge-M">M</span></td><td><span class="badge badge-L">L</span></td><td>内部</td><td class="note">缩短调参周期</td></tr>
+    <tr><td class="num">7</td><td class="feature">营销 / 直播脚本生成</td><td><span class="badge badge-L">L</span></td><td><span class="badge badge-M">M</span></td><td><span class="badge badge-M">M</span></td><td>J9 / 直播</td><td class="note">绑 livestream coach</td></tr>
+    <tr><td class="num">8</td><td class="feature">玄学命理引擎</td><td><span class="badge badge-L">L</span></td><td><span class="badge badge-H">H</span></td><td><span class="badge badge-H">H</span></td><td>HG / J9</td><td class="note">SEA 原生入口</td></tr>
+    <tr><td class="num">9</td><td class="feature">庙公 / 财神 NPC</td><td><span class="badge badge-M">M</span></td><td><span class="badge badge-M">M</span></td><td><span class="badge badge-H">H</span></td><td>HG</td><td class="note">留存机制 + 情感投射</td></tr>
+    <tr><td class="num">10</td><td class="feature">局气陪玩 agent</td><td><span class="badge badge-M">M</span></td><td><span class="badge badge-M">M</span></td><td><span class="badge badge-H">H</span></td><td>HG / 直播</td><td class="note">声音 + 表情包</td></tr>
+    <tr><td class="num">11</td><td class="feature">AI 高光自动剪 + 一键分享</td><td><span class="badge badge-L">L</span></td><td><span class="badge badge-H">H</span></td><td><span class="badge badge-H">H</span></td><td>跨 / 获客</td><td class="note">玩家变 KOC，最易出招牌</td></tr>
+    <tr><td class="num">12</td><td class="feature">数字主播分身</td><td><span class="badge badge-H">H</span></td><td><span class="badge badge-H">H</span></td><td><span class="badge badge-M">M</span></td><td>直播</td><td class="note">24h 在线</td></tr>
+    <tr><td class="num">13</td><td class="feature">生成式 slot demo</td><td><span class="badge badge-H">H</span></td><td><span class="badge badge-M">M</span></td><td><span class="badge badge-XH">XH</span></td><td>HG / UGC</td><td class="note">UGC 流量 + 爆款选题</td></tr>
+    <tr><td class="num">14</td><td class="feature">AI 财务教练</td><td><span class="badge badge-L">L</span></td><td><span class="badge badge-M">M</span></td><td><span class="badge badge-M">M</span></td><td>合规 / HG</td><td class="note">license 加分项</td></tr>
+    <tr><td class="num">15</td><td class="feature">情绪识别智能冷却</td><td><span class="badge badge-M">M</span></td><td><span class="badge badge-M">M</span></td><td><span class="badge badge-H">H</span></td><td>HG</td><td class="note">比硬性弹窗友好</td></tr>
+    <tr><td class="num">16</td><td class="feature">学外语 × slot</td><td><span class="badge badge-M">M</span></td><td><span class="badge badge-L">L</span></td><td><span class="badge badge-XH">XH</span></td><td>新品类</td><td class="note">没人这么做过</td></tr>
+    <tr><td class="num">17</td><td class="feature">运营商 Copilot</td><td><span class="badge badge-M">M</span></td><td><span class="badge badge-H">H</span></td><td><span class="badge badge-M">M</span></td><td>PA/BP / B 端</td><td class="note">订阅制收费</td></tr>
+    <tr><td class="num">18</td><td class="feature">AI Marketplace</td><td><span class="badge badge-XH">XH</span></td><td><span class="badge badge-XH">XH</span></td><td><span class="badge badge-H">H</span></td><td>平台 / 战略</td><td class="note">改变估值逻辑</td></tr>
+    <tr><td class="num">19</td><td class="feature">跨厂商反诈联盟</td><td><span class="badge badge-XH">XH</span></td><td><span class="badge badge-H">H</span></td><td><span class="badge badge-H">H</span></td><td>行业 / 战略</td><td class="note">治理话语权</td></tr>
+    <tr><td class="num">20</td><td class="feature">牌照合规知识库</td><td><span class="badge badge-M">M</span></td><td><span class="badge badge-M">M</span></td><td><span class="badge badge-M">M</span></td><td>B 端 SaaS</td><td class="note">监管追踪</td></tr>
+    <tr><td class="num">21</td><td class="feature">跨游戏伙伴养成</td><td><span class="badge badge-H">H</span></td><td><span class="badge badge-M">M</span></td><td><span class="badge badge-H">H</span></td><td>HG / J9</td><td class="note">Pokémon × Replika × Casino</td></tr>
+    <tr><td class="num">22</td><td class="feature">文字冒险 + 下注融合</td><td><span class="badge badge-H">H</span></td><td><span class="badge badge-q">?</span></td><td><span class="badge badge-XH">XH</span></td><td>新品类</td><td class="note">品类创新但需验证</td></tr>
+    <tr><td class="num">23</td><td class="feature">程序化赛季内容</td><td><span class="badge badge-H">H</span></td><td><span class="badge badge-M">M</span></td><td><span class="badge badge-H">H</span></td><td>运营</td><td class="note">把月度活动变日度</td></tr>
+    <tr><td class="num">24</td><td class="feature">玩家自治社区</td><td><span class="badge badge-XH">XH</span></td><td><span class="badge badge-M">M</span></td><td><span class="badge badge-H">H</span></td><td>HG / 社交</td><td class="note">公会 + AI 裁判</td></tr>
+  </tbody>
+</table>
+
+<h2>功能详情</h2>
+<div class="detail-grid">
+
+  <div class="detail-card">
+    <div class="head"><span class="id">#1</span><span class="name">个性化推荐引擎</span><span class="badges"><span class="badge badge-M">M</span><span class="badge badge-H">H</span><span class="badge badge-M">M</span></span></div>
+    <div class="position">跨品类的「下一款最想玩」预测</div>
+    <div class="desc">基于玩家实时行为（投注节奏、品类偏好、消费等级、上头信号）建模，做协同过滤 + LLM rerank，跨 slot / fishing / crash / live 推荐。不是同品类相似度，而是跨品类协同——玩 slot 累了的玩家此刻可能最想去捕鱼直播间。</div>
+    <div class="meta-row"><span class="label">挂载</span><span class="value">HG 大厅推荐位、J9 聊天推荐、PA/BP 平台 API</span></div>
+    <div class="meta-row"><span class="label">卖点</span><span class="value">提升单平台 ARPU 与留存；对运营商作为 platform value-add</span></div>
+  </div>
+
+  <div class="detail-card">
+    <div class="head"><span class="id">#2</span><span class="name">反作弊 / 异常行为检测</span><span class="badges"><span class="badge badge-H">H</span><span class="badge badge-H">H</span><span class="badge badge-M">M</span></span></div>
+    <div class="position">实时识别套利、机器人、洗码、对打</div>
+    <div class="desc">基于历史风控数据 + 行为指纹 + 异常检测模型，对单局、单玩家、单 IP、单设备实时打分。捕鱼「进房未注 70%、高额房 10 秒离开 50%」这类真实模式直接作为训练样本。</div>
+    <div class="meta-row"><span class="label">挂载</span><span class="value">BP 接入层 risk-score、PA 注册风控、HG anti-bot</span></div>
+    <div class="meta-row"><span class="label">卖点</span><span class="value">运营商付费意愿最强；可单独定价或捆绑订阅</span></div>
+  </div>
+
+  <div class="detail-card">
+    <div class="head"><span class="id">#3</span><span class="name">自然语言 BI</span><span class="badges"><span class="badge badge-M">M</span><span class="badge badge-H">H</span><span class="badge badge-M">M</span></span></div>
+    <div class="position">自然语言提问，自动出 SQL + 图表</div>
+    <div class="desc">运营商在后台问「昨天 Mahjong Ways 2 在印尼的 GGR 和留存」，系统 RAG 数据 schema 后生成 SQL → 执行 → 自动可视化。支持追问、保存为 dashboard。</div>
+    <div class="meta-row"><span class="label">挂载</span><span class="value">Mission Control、运营商管理端、PA/BP 数据视图</span></div>
+    <div class="meta-row"><span class="label">卖点</span><span class="value">对外路演最直观、最容易让 CEO 决策买单</span></div>
+  </div>
+
+  <div class="detail-card">
+    <div class="head"><span class="id">#4</span><span class="name">多语种实时客服</span><span class="badges"><span class="badge badge-M">M</span><span class="badge badge-M">M</span><span class="badge badge-H">H</span></span></div>
+    <div class="position">印尼 / 泰 / 越 / 中 / 英 7×24 智能客服</div>
+    <div class="desc">LLM + 知识库 RAG 处理高频问题（提现、绑卡、活动规则、违规处理），复杂问题转人工。直播间内可做实时多语种弹幕翻译、跨语种主播-观众沟通。</div>
+    <div class="meta-row"><span class="label">挂载</span><span class="value">HG 客服入口、直播间弹幕翻译层、J9 FAQ</span></div>
+    <div class="meta-row"><span class="label">卖点</span><span class="value">SEA 多语客服外包贵、夜间响应差，AI 直接降本</span></div>
+  </div>
+
+  <div class="detail-card">
+    <div class="head"><span class="id">#5</span><span class="name">Responsible Gaming AI</span><span class="badges"><span class="badge badge-L">L</span><span class="badge badge-M">M</span><span class="badge badge-H">H</span></span></div>
+    <div class="position">高风险下注行为检测 + 分级干预</div>
+    <div class="desc">识别异常下注节奏、追损、连续游戏时长、单笔金额激增。分级干预：温和提示 → 卡通提醒 → 强制冷却期 → 推送责任博弈热线。和 SEA 各地监管要求对齐。</div>
+    <div class="meta-row"><span class="label">挂载</span><span class="value">HG 行为监听层、合规中台</span></div>
+    <div class="meta-row"><span class="label">卖点</span><span class="value">PAGCOR / 马来牌照谈判直接筹码；不是赚钱功能，是 license 加分项</span></div>
+  </div>
+
+  <div class="detail-card">
+    <div class="head"><span class="id">#6</span><span class="name">数学建模助手</span><span class="badges"><span class="badge badge-H">H</span><span class="badge badge-M">M</span><span class="badge badge-L">L</span></span></div>
+    <div class="position">slot / 捕鱼数学建模 LLM 副驾（内部用）</div>
+    <div class="desc">输入目标 RTP / 波动率 / 命中率，LLM 给出 paytable 候选；基于历史玩家数据模拟新版本上线后的留存 / GGR / 投诉率。直接缩短「调感知 RTP 至 96.5%」这类调参周期。</div>
+    <div class="meta-row"><span class="label">挂载</span><span class="value">游戏开发内部工具链、QA 流程</span></div>
+    <div class="meta-row"><span class="label">卖点</span><span class="value">不对外卖；故事点是「我们出新版本比对手快 3x」</span></div>
+  </div>
+
+  <div class="detail-card">
+    <div class="head"><span class="id">#7</span><span class="name">营销 / 直播脚本生成</span><span class="badges"><span class="badge badge-L">L</span><span class="badge badge-M">M</span><span class="badge badge-M">M</span></span></div>
+    <div class="position">每日数据驱动的主播话术 / 脚本 / 推送文案</div>
+    <div class="desc">根据当日玩家数据、热门游戏、节日热点，自动生成符合主播人设和平台调性的内容。多语言版本一键产出，针对 TikTok / Douyin / Kuaishou 不同平台定制。</div>
+    <div class="meta-row"><span class="label">挂载</span><span class="value">J9 主播工作台、直播运营后台、社群机器人</span></div>
+    <div class="meta-row"><span class="label">卖点</span><span class="value">解 J9 从 06-11 延至 06-19 错过世界杯这类 last-mile 内容产能瓶颈</span></div>
+  </div>
+
+  <div class="detail-card">
+    <div class="head"><span class="id">#8</span><span class="name">玄学命理引擎</span><span class="badges"><span class="badge badge-L">L</span><span class="badge badge-H">H</span><span class="badge badge-H">H</span></span></div>
+    <div class="position">SEA 文化原生的获客 / 留存入口</div>
+    <div class="desc">玩家输入生辰、生肖、当日梦境、塔罗抽牌，AI 返回今日运势 + 推荐游戏 + 幸运数字 + 押注节奏。深度本地化华人玄学、印尼神秘主义、泰国佛教。</div>
+    <div class="meta-row"><span class="label">挂载</span><span class="value">HG 大厅入口、J9 每日推送、社群引流页</span></div>
+    <div class="meta-row"><span class="label">卖点</span><span class="value">SEA 玩家本来吃这套，CAC 比纯「推荐」入口更低、传播性更强</span></div>
+  </div>
+
+  <div class="detail-card">
+    <div class="head"><span class="id">#9</span><span class="name">庙公 / 财神 NPC</span><span class="badges"><span class="badge badge-M">M</span><span class="badge badge-M">M</span><span class="badge badge-H">H</span></span></div>
+    <div class="position">低成本高情感投射的留存机制</div>
+    <div class="desc">HG 大厅养一个数字财神 / 虎爷 / 关公等 NPC。每日「拜」获 buff（免费旋 / 加成）、连续登录解锁剧情、节日触发特殊动画。本质是把签到日历升级成情感化 NPC。</div>
+    <div class="meta-row"><span class="label">挂载</span><span class="value">HG 大厅首页常驻位、节日活动联动</span></div>
+    <div class="meta-row"><span class="label">卖点</span><span class="value">SEA 玩家会真的产生情感投射，远好过签到 UI</span></div>
+  </div>
+
+  <div class="detail-card">
+    <div class="head"><span class="id">#10</span><span class="name">局气陪玩 agent</span><span class="badges"><span class="badge badge-M">M</span><span class="badge badge-M">M</span><span class="badge badge-H">H</span></span></div>
+    <div class="position">游戏中实时反应的 AI 朋友</div>
+    <div class="desc">玩 slot / 捕鱼时旁边一个 AI 朋友，根据玩家行为实时反应：输了帮骂庄、赢了喊兄弟、上头时劝冷静。语音 + 表情包，可在直播间用同款 agent 当虚拟队友。</div>
+    <div class="meta-row"><span class="label">挂载</span><span class="value">HG 游戏内浮窗、捕鱼直播间虚拟队友</span></div>
+    <div class="meta-row"><span class="label">卖点</span><span class="value">把玩家孤独感转成陪伴感，留存 + ARPU 双提</span></div>
+  </div>
+
+  <div class="detail-card">
+    <div class="head"><span class="id">#11</span><span class="name">AI 高光自动剪 + 一键分享</span><span class="badges"><span class="badge badge-L">L</span><span class="badge badge-H">H</span><span class="badge badge-H">H</span></span></div>
+    <div class="position">把每个 big win 变成获客素材</div>
+    <div class="desc">玩家中大奖瞬间自动剪 9:16 短视频，加本地化字幕、表情包、BGM，提示一键分享到 TikTok / Kuaishou / 朋友圈。技术上最容易、API 已成熟。</div>
+    <div class="meta-row"><span class="label">挂载</span><span class="value">HG 游戏胜利结算页、捕鱼大奖事件、直播高光节选</span></div>
+    <div class="meta-row"><span class="label">卖点</span><span class="value">玩家变 KOC，CAC 接近零；最容易当对外讲故事的招牌功能</span></div>
+  </div>
+
+  <div class="detail-card">
+    <div class="head"><span class="id">#12</span><span class="name">数字主播分身</span><span class="badges"><span class="badge badge-H">H</span><span class="badge badge-H">H</span><span class="badge badge-M">M</span></span></div>
+    <div class="position">真人主播下播后 24h 不下播</div>
+    <div class="desc">基于真人语音克隆 + 视觉建模，下播后 AI 数字人接班继续直播带 slot / 捕鱼。应对世界杯、Black Friday 等需要 24h 在线的窗口。</div>
+    <div class="meta-row"><span class="label">挂载</span><span class="value">J9 主播工作台、HG 直播运营平台、跨平台同步直播</span></div>
+    <div class="meta-row"><span class="label">卖点</span><span class="value">主播睡觉时品牌不下播；解决错过流量窗口的时机性问题</span></div>
+  </div>
+
+  <div class="detail-card">
+    <div class="head"><span class="id">#13</span><span class="name">生成式 slot demo</span><span class="badges"><span class="badge badge-H">H</span><span class="badge badge-M">M</span><span class="badge badge-XH">XH</span></span></div>
+    <div class="position">UGC 流量入口 + 爆款选题发现器</div>
+    <div class="desc">玩家文字描述「我想要某主题暴富 slot」，30 秒生成可玩 demo。资产 AI 生成、数学模型套现成模板。绝大多数进不了正式产品线，但是 UGC 流量 + 找爆款选题。</div>
+    <div class="meta-row"><span class="label">挂载</span><span class="value">HG 创意工坊模块、社交平台分享入口</span></div>
+    <div class="meta-row"><span class="label">卖点</span><span class="value">品类创新，对手完全没有；自带病毒传播</span></div>
+  </div>
+
+  <div class="detail-card">
+    <div class="head"><span class="id">#14</span><span class="name">AI 财务教练</span><span class="badges"><span class="badge badge-L">L</span><span class="badge badge-M">M</span><span class="badge badge-M">M</span></span></div>
+    <div class="position">把娱乐预算变成一个 AI 服务</div>
+    <div class="desc">帮玩家设月度娱乐预算上限、给节奏建议、追损时强制冷静期。把「运营商防玩家」反转为「运营商帮玩家」的合规故事。</div>
+    <div class="meta-row"><span class="label">挂载</span><span class="value">HG 玩家中心、合规中台</span></div>
+    <div class="meta-row"><span class="label">卖点</span><span class="value">PAGCOR / 马来牌照加分；SEA 中产玩家在意被尊重</span></div>
+  </div>
+
+  <div class="detail-card">
+    <div class="head"><span class="id">#15</span><span class="name">情绪识别智能冷却</span><span class="badges"><span class="badge badge-M">M</span><span class="badge badge-M">M</span><span class="badge badge-H">H</span></span></div>
+    <div class="position">玩家「上头」的智能干预</div>
+    <div class="desc">通过下注节奏、点击间隔、聊天文本、客服对话识别上头信号。主动弹卡通形象提议休息 → 推荐低波动游戏 → 送小奖回头。比硬性弹窗友好十倍。</div>
+    <div class="meta-row"><span class="label">挂载</span><span class="value">HG 游戏内行为监听、客服系统、合规中台</span></div>
+    <div class="meta-row"><span class="label">卖点</span><span class="value">用户感知是「为我着想」而不是「打断我」，留存 + 合规双效</span></div>
+  </div>
+
+  <div class="detail-card">
+    <div class="head"><span class="id">#16</span><span class="name">学外语 × slot</span><span class="badges"><span class="badge badge-M">M</span><span class="badge badge-L">L</span><span class="badge badge-XH">XH</span></span></div>
+    <div class="position">Duolingo + Casino 混合体</div>
+    <div class="desc">slot 主题里渗透英语 / 泰语 / 日语词汇学习，每达成里程碑送奖金 / 免费旋。把「娱乐」扩展到「娱乐 + 学习」。</div>
+    <div class="meta-row"><span class="label">挂载</span><span class="value">独立新品类游戏 / HG 教育模式</span></div>
+    <div class="meta-row"><span class="label">卖点</span><span class="value">完全没人这么做过；自带新闻话题性</span></div>
+  </div>
+
+  <div class="detail-card">
+    <div class="head"><span class="id">#17</span><span class="name">运营商 Copilot</span><span class="badges"><span class="badge badge-M">M</span><span class="badge badge-H">H</span><span class="badge badge-M">M</span></span></div>
+    <div class="position">运营商后台的虚拟运营经理</div>
+    <div class="desc">主动提示「留存掉了 12%，可能原因 X，建议 Y」。结合 #1 推荐、#2 反作弊、#3 NL-BI 形成完整 agent 体验。订阅制收费。</div>
+    <div class="meta-row"><span class="label">挂载</span><span class="value">PA/BP 运营商后台、Mission Control</span></div>
+    <div class="meta-row"><span class="label">卖点</span><span class="value">从「卖工具」升级成「卖虚拟员工」</span></div>
+  </div>
+
+  <div class="detail-card">
+    <div class="head"><span class="id">#18</span><span class="name">AI Marketplace</span><span class="badges"><span class="badge badge-XH">XH</span><span class="badge badge-XH">XH</span><span class="badge badge-H">H</span></span></div>
+    <div class="position">iGaming 行业的 AI 能力市场</div>
+    <div class="desc">把所有 AI 能力（推荐、反作弊、客服、合规、内容生成、数字主播）模块化，运营商按需订阅。HG / PA / BP 从「游戏 CP」升级成「AI iGaming 平台」。</div>
+    <div class="meta-row"><span class="label">挂载</span><span class="value">平台战略级，需先把 4-6 个能力做扎实</span></div>
+    <div class="meta-row"><span class="label">卖点</span><span class="value">估值逻辑从「游戏厂商」变成「平台公司」</span></div>
+  </div>
+
+  <div class="detail-card">
+    <div class="head"><span class="id">#19</span><span class="name">跨厂商反诈联盟</span><span class="badges"><span class="badge badge-XH">XH</span><span class="badge badge-H">H</span><span class="badge badge-H">H</span></span></div>
+    <div class="position">行业级共享黑名单 + 治理话语权</div>
+    <div class="desc">组织行业级联盟，跨厂商共享黑名单、行为指纹、套利团伙画像。AI agent 自动同步、计算 risk score。技术之外的卖点是治理话语权。</div>
+    <div class="meta-row"><span class="label">挂载</span><span class="value">在 #2 反作弊基础上的联盟治理层</span></div>
+    <div class="meta-row"><span class="label">卖点</span><span class="value">治理话语权变现，我们牵头建联盟</span></div>
+  </div>
+
+  <div class="detail-card">
+    <div class="head"><span class="id">#20</span><span class="name">牌照合规知识库</span><span class="badges"><span class="badge badge-M">M</span><span class="badge badge-M">M</span><span class="badge badge-M">M</span></span></div>
+    <div class="position">监管法规追踪 + 主动提示</div>
+    <div class="desc">AI agent 实时监控 PAGCOR、库拉索、马耳他、伊苏鲁瓦、马来等监管机构的法规变更，主动提示运营商需要做什么调整。</div>
+    <div class="meta-row"><span class="label">挂载</span><span class="value">合规中台、运营商订阅服务</span></div>
+    <div class="meta-row"><span class="label">卖点</span><span class="value">To-B 合规 SaaS 玩法，订阅留存高</span></div>
+  </div>
+
+  <div class="detail-card">
+    <div class="head"><span class="id">#21</span><span class="name">跨游戏伙伴养成</span><span class="badges"><span class="badge badge-H">H</span><span class="badge badge-M">M</span><span class="badge badge-H">H</span></span></div>
+    <div class="position">Pokémon × Replika × Casino</div>
+    <div class="desc">玩家有一个 AI 伙伴（数字宠物 / 虚拟女友 / 虚拟兄弟），跟着进 HG 所有游戏。它有记忆、有性格、会成长，记得玩家上次输了多少。</div>
+    <div class="meta-row"><span class="label">挂载</span><span class="value">HG 跨游戏账户体系</span></div>
+    <div class="meta-row"><span class="label">卖点</span><span class="value">从游戏留存升级成情感留存，单玩家 LTV 显著提升</span></div>
+  </div>
+
+  <div class="detail-card">
+    <div class="head"><span class="id">#22</span><span class="name">文字冒险 + 下注融合</span><span class="badges"><span class="badge badge-H">H</span><span class="badge badge-q">?</span><span class="badge badge-XH">XH</span></span></div>
+    <div class="position">AI 原生赌博新品类</div>
+    <div class="desc">AI 讲一个剧情冒险（武侠 / 海盗 / 玄幻），关键节点变成下注事件（「赌他是奸细？赔率 1.8」）。不是 slot / crash / fishing，是新形态。</div>
+    <div class="meta-row"><span class="label">挂载</span><span class="value">独立新游戏；和 #21 伙伴养成可联动</span></div>
+    <div class="meta-row"><span class="label">卖点</span><span class="value">品类创新；可拿「AI 原生赌博」叙事</span></div>
+  </div>
+
+  <div class="detail-card">
+    <div class="head"><span class="id">#23</span><span class="name">程序化赛季内容</span><span class="badges"><span class="badge badge-H">H</span><span class="badge badge-M">M</span><span class="badge badge-H">H</span></span></div>
+    <div class="position">把月度活动变日度</div>
+    <div class="desc">AI 每周（甚至每天）自动生成主题赛季：剧情 + 限定 slot 改皮 + 任务线。运营成本从「每月一个活动」变成「每天一个活动」。</div>
+    <div class="meta-row"><span class="label">挂载</span><span class="value">HG 运营平台、跨游戏活动系统</span></div>
+    <div class="meta-row"><span class="label">卖点</span><span class="value">运营成本断崖式下降；玩家始终有新鲜感</span></div>
+  </div>
+
+  <div class="detail-card">
+    <div class="head"><span class="id">#24</span><span class="name">玩家自治社区</span><span class="badges"><span class="badge badge-XH">XH</span><span class="badge badge-M">M</span><span class="badge badge-H">H</span></span></div>
+    <div class="position">把单刷游戏变成有社会结构的游戏</div>
+    <div class="desc">公会 / 势力 / 地盘战由 AI agent 当裁判 + 剧情推动者。玩家不只单刷，而是为公会贡献。slot / 捕鱼变成有社会结构的玩法。</div>
+    <div class="meta-row"><span class="label">挂载</span><span class="value">HG 跨游戏社交层</span></div>
+    <div class="meta-row"><span class="label">卖点</span><span class="value">留存模型从个人 LTV 升级成网络效应</span></div>
+  </div>
+
+</div>
+
+<h2>四象限分布（价值 × 复杂度）</h2>
+<div class="quadrant-grid">
+  <div class="quadrant priority-1">
+    <h3>第一优先级：高价值 × 低复杂度（先打的牌）</h3>
+    <ul>
+      <li><strong>#11 AI 高光自动剪</strong> — 病毒系数立刻可测，TikTok / Kuaishou API 成熟</li>
+      <li><strong>#8 玄学命理引擎</strong> — SEA 文化原生，留存 + 获客双效</li>
+      <li><strong>#3 自然语言 BI</strong> — 对外路演最直观</li>
+      <li><strong>#7 营销 / 直播脚本</strong> — 解 J9 错过世界杯窗口的痛</li>
+      <li><strong>#5 + #14 合规向</strong> — 牌照谈判筹码</li>
+    </ul>
+  </div>
+  <div class="quadrant priority-2">
+    <h3>第二优先级：高价值 × 中等复杂度（季度级押注）</h3>
+    <ul>
+      <li><strong>#1 个性化推荐引擎</strong> — 跨品类协同打底</li>
+      <li><strong>#2 反作弊</strong> — 运营商最痛</li>
+      <li><strong>#17 运营商 Copilot</strong> — 把 #1 #2 #3 串成订阅制</li>
+      <li><strong>#4 多语种客服</strong> — SEA 准入</li>
+    </ul>
+  </div>
+  <div class="quadrant priority-3">
+    <h3>第三优先级：战略级长期投入</h3>
+    <ul>
+      <li><strong>#18 AI Marketplace</strong> — 把上面所有能力模块化对外卖</li>
+      <li><strong>#19 跨厂商反诈联盟</strong> — 行业话语权</li>
+      <li><strong>#12 数字主播分身</strong> — 直播品类升级</li>
+    </ul>
+  </div>
+  <div class="quadrant priority-x">
+    <h3>实验 / 观察区：差异化高但价值未验证</h3>
+    <ul>
+      <li><strong>#13 / #22 / #16</strong> — 都是品类创新，建议小预算 hackathon 验证</li>
+      <li><strong>#9 NPC / #10 陪玩 / #21 伙伴</strong> — 内容投入大，先用 LLM prompt 验证玩家反馈再做工程</li>
+    </ul>
+  </div>
+</div>
+
+<h2>推荐组合（如果只押三个）</h2>
+<div class="combo-grid">
+  <div class="combo a">
+    <div class="combo-name">A 路：玩家增长</div>
+    <div class="content">#11 高光剪 + #8 玄学 + #4 多语种客服</div>
+    <div class="story">「SEA 玩家原生平台」</div>
+  </div>
+  <div class="combo b">
+    <div class="combo-name">B 路：B 端付费</div>
+    <div class="content">#1 推荐 + #2 反作弊 + #17 Copilot（叠 #3 NL-BI）</div>
+    <div class="story">「AI iGaming Platform」</div>
+  </div>
+  <div class="combo c">
+    <div class="combo-name">C 路：合规 / 牌照</div>
+    <div class="content">#5 RG + #14 财务教练 + #15 情绪冷却</div>
+    <div class="story">「最负责任的运营商」</div>
+  </div>
+</div>
+<div class="combo-note">
+  A + B 同时跑、共用一套底层数据基建（玩家行为埋点 + LLM 服务层），C 路作为合规并行小队。
+</div>
+
+<h2>整合点速查</h2>
+<table>
+  <thead>
+    <tr><th>产品线</th><th>短期挂载</th><th>中期挂载</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>HG 自营大厅</strong></td><td>#8 玄学入口 / #11 高光剪 / #1 推荐位</td><td>#9 NPC / #15 情绪冷却 / #21 伙伴</td></tr>
+    <tr><td><strong>J9 TG 机器人</strong></td><td>#7 脚本 / #8 玄学</td><td>#1 推荐 / #17 Copilot</td></tr>
+    <tr><td><strong>PA / BP 平台</strong></td><td>#3 NL-BI / #1 推荐 API</td><td>#2 反作弊 / #17 Copilot / #18 Marketplace</td></tr>
+    <tr><td><strong>捕鱼</strong></td><td>#2 反作弊（套利识别） / #15 情绪冷却</td><td>#10 陪玩 agent / #23 程序化赛季</td></tr>
+    <tr><td><strong>直播</strong></td><td>#7 脚本 / #4 多语种</td><td>#12 数字主播 / #10 陪玩</td></tr>
+    <tr><td><strong>内部</strong></td><td>#6 数学建模 / #20 合规库</td><td>—</td></tr>
+    <tr><td><strong>战略</strong></td><td>—</td><td>#18 Marketplace / #19 反诈联盟</td></tr>
+  </tbody>
+</table>
+
+<h2>下一步</h2>
+<ol class="steps">
+  <li>内部对齐评分（这份是我个人估值，需要工程 / 运营 / 合规三方校准）</li>
+  <li>选定推荐组合后，每个功能出一份单独的 dry-run 文档放 <code>02-Projects/Dry-Runs/</code>，识别技术依赖与外部 API gap</li>
+  <li>先把 #11 高光剪做成 1 周 POC，跑通数据再决定后面投不投</li>
+</ol>
+
+<footer>
+  <p>引用来源：本周 working memory（HG / J9 / 捕鱼 进度、SEA slot 研究、livestream commerce coach 上下文）。</p>
+  <p>后续讨论入口：评论或新增条目编号续接。</p>
+</footer>
+
+</body>
+</html>
